@@ -1,0 +1,30 @@
+<h3><%= @post.content%></h3>
+
+<% if @post.user == current_user %>
+    <%= link_to("Edit", edit_post_path(@post))%>
+    <%= link_to("Delete", post_path(@post), method: :delete)%><br>
+<% end %>
+
+
+Number of views: <%= @post.hits %>
+
+
+<p><%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+
+<% pre_like = @post.likes.find_by(user_id: current_user.id) %>
+
+<% if pre_like %>
+  <%= button_to 'Unlike', post_like_path(@post, pre_like), method: :delete %>
+<% else %>
+  <%= button_to 'Like', post_likes_path(@post), method: :post %>
+<% end %>
+
+
+
+<h4>Comments:</h4>
+
+<%= render({partial: "comments/form", locals: {post: @post, comment: @comment}})%>
+
+<%= render(@post.comments.order(created_at: :desc)) || "Be the first to comment on this post" %>
+
+<p><%= link_to("Back", user_path(@post.user))%>

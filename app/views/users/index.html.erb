@@ -1,0 +1,17 @@
+<h1>Found users</h1>
+
+
+
+<%if @users.empty?%>
+    <h2>Sorry, user wasn't found</h2>
+<%else%>
+
+    <% @users.each do |user| %>
+        <%= display_thumbnail(user) %><br>
+        <%= link_to user.name, user_path(user) -%><br>
+    <% end %>
+    
+<%end %>
+
+
+<p><%= link_to("Back", user_friends_path(current_user))%>

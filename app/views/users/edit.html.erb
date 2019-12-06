@@ -1,0 +1,15 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+
+    </ul>
+  </div>
+<% end %>
+
+<%= render(partial: "form", locals:{user: @user}) %>
+
+<%= link_to("Delete account", user_path(@user), method: :delete, data: { confirm: "Are you sure? This action cannot be undone" })%>
